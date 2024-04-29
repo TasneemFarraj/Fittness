@@ -9,9 +9,9 @@ namespace Fittness.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PalateRecipesController : ControllerBase
+    public class PalateRecipeController : ControllerBase
     {
-        public PalateRecipesController(AppDBContext db)
+        public PalateRecipeController(AppDBContext db)
         {
             _db = db;
         }

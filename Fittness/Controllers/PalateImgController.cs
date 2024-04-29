@@ -64,7 +64,7 @@ namespace Fittness.Controllers
         [HttpPut]
         public async Task<IActionResult> PalateImages(PalateImg palate)
         {
-            var Palate = await _db.Palates1.SingleOrDefaultAsync(x => x.Id == palate.Id);
+            var Palate = await _db.PalatesImg.SingleOrDefaultAsync(x => x.Id == palate.Id);
 
             if (Palate == null)
             {

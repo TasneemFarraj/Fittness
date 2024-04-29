@@ -2,13 +2,11 @@
 
 namespace Fittness.Data.Models
 {
-    public class Category
+    public class Frequently_question
     {
         [Key]
         public int Id { get; set; }
-        [MaxLength(50)]
-
-        public string Name { get; set; }
-        public string? notes { get; set; }
+        public string Question { get; set; }
+        public string Answer { get; set; }
     }
 }
