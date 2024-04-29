@@ -23,7 +23,7 @@ namespace Fittness.Controllers
         private readonly AppDBContext _db;
 
         //Get methods 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ResponseStandardJsonApi> PalateCards()
         {
             var apiResponse = new ResponseStandardJsonApi();
@@ -57,51 +57,132 @@ namespace Fittness.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> PalateCards(int id)
+        public async Task<ResponseStandardJsonApi> PalateCards(int id)
         {
+
+            var apiResponse = new ResponseStandardJsonApi();
+
             var Palate = await _db.Palates1.SingleOrDefaultAsync(x => x.Id == id);
 
-            if (Palate == null)
+            try
             {
-                return NotFound($"Palate Id {id} not exist!");
+                var Palatee = await _db.Palates1.ToListAsync();
+
+                if (Palatee.Count() > 0)
+                {
+                    apiResponse.Message = "Show Rows";
+                    apiResponse.Code = Ok().StatusCode;
+                    apiResponse.Success = true;
+                    apiResponse.Result = Palate;
+                }
+                else
+                {
+                    apiResponse.Success = false;
+                    apiResponse.Message = "No Data";
+                    apiResponse.Code = NotFound().StatusCode;
+                    apiResponse.Result = new NullColumns[] { };
+                }
+            }
+            catch (Exception ex)
+            {
+                apiResponse.Success = false;
+                apiResponse.Message = ex.Message;
+                apiResponse.Code = BadRequest().StatusCode;
+                apiResponse.Result = new NullColumns[] { };
             }
 
-            _db.SaveChanges();
-            return Ok(Palate);
+            return apiResponse;  
+
         }
 
 
         //Post method
         [HttpPost]
-        public async Task<IActionResult> PalateCards([FromForm] mdlCrafts mdl)
+        public async Task<ResponseStandardJsonApi> PalateCards([FromForm] mdlCrafts mdl)
         {
-            using var stream = new MemoryStream();
-            await mdl.Image.CopyToAsync(stream);
-
-
-            var craft = new Palate1
+            var apiResponse = new ResponseStandardJsonApi();
+            try
             {
-                Name = mdl.Name,
-                Image = stream.ToArray()
-            };
-            await _db.Palates1.AddAsync(craft);
-            await _db.SaveChangesAsync();
-            return Ok(craft);
-        }
 
+                var Palatee = await _db.Palates1.ToListAsync();
+
+                if (Palatee.Count() > 0)
+                {
+                    apiResponse.Message = "Show Rows";
+                    apiResponse.Code = Ok().StatusCode;
+                    apiResponse.Success = true;
+                    apiResponse.Result = null;
+                }
+                else
+                {
+                    apiResponse.Success = false;
+                    apiResponse.Message = "No Data";
+                    apiResponse.Code = NotFound().StatusCode;
+                    apiResponse.Result = new NullColumns[] { };
+                }
+            }
+            catch (Exception ex)
+            {
+                apiResponse.Success = false;
+                apiResponse.Message = ex.Message;
+                apiResponse.Code = BadRequest().StatusCode;
+                apiResponse.Result = new NullColumns[] { };
+            }
+
+            return apiResponse;
+
+            {
+                using var stream = new MemoryStream();
+                await mdl.Image.CopyToAsync(stream);
+
+
+                var craft = new Palate1
+                {
+                    Name = mdl.Name,
+                    Image = stream.ToArray()
+                };
+                await _db.Palates1.AddAsync(craft);
+                await _db.SaveChangesAsync();
+            }
+        }
         //Put method
         [HttpPut]
-        public async Task<IActionResult> PalateCards(Palate1 palate)
+        public async Task<ResponseStandardJsonApi> PalateCards(Palate1 palate)
         {
-            var Palate = await _db.Palates1.SingleOrDefaultAsync(x => x.Id == palate.Id);
+            var apiResponse = new ResponseStandardJsonApi();
 
-            if (Palate == null)
+            var Palate = await _db.Palates1.SingleOrDefaultAsync(x => x.Id == palate.Id);
+            try
             {
-                return NotFound($"Palate Id {palate.Id} not exist!");
+
+                var Palatee = await _db.Palates1.ToListAsync();
+
+                if (Palatee.Count() > 0)
+                {
+                    apiResponse.Message = "Show Rows";
+                    apiResponse.Code = Ok().StatusCode;
+                    apiResponse.Success = true;
+                    apiResponse.Result = null;
+                }
+                else
+                {
+                    apiResponse.Success = false;
+                    apiResponse.Message = "No Data";
+                    apiResponse.Code = NotFound().StatusCode;
+                    apiResponse.Result = new NullColumns[] { };
+                }
             }
-            Palate.Name = palate.Name;
-            _db.SaveChanges();
-            return Ok(palate);
+            catch (Exception ex)
+            {
+                apiResponse.Success = false;
+                apiResponse.Message = ex.Message;
+                apiResponse.Code = BadRequest().StatusCode;
+                apiResponse.Result = new NullColumns[] { };
+            }
+
+            return apiResponse;
+
+
         }
 
         //Delete method
@@ -117,23 +198,7 @@ namespace Fittness.Controllers
             _db.Palates1.Remove(Palate);
             await _db.SaveChangesAsync();
             return Ok(Palate);
-        }
-
-        //Patch method
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdatePalatePatct
-        ([FromBody] JsonPatchDocument<Palate1> palate, [FromRoute] int id)
-        {
-            var Palate = await _db.Palates1.SingleOrDefaultAsync(x => x.Id == id);
-
-            if (Palate == null)
-            {
-                return NotFound($"Palate Id {id} not exists");
-            }
-            palate.ApplyTo(Palate);
-            _db.SaveChanges();
-            return Ok(Palate);
-
+        
         }
     }
 }

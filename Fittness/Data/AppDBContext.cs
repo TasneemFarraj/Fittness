@@ -1,9 +1,10 @@
 ﻿using Fittness.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fittness.Data
 {
-    public class AppDBContext : DbContext
+    public class AppDBContext : IdentityDbContext<AppUser>
     {
         public AppDBContext(DbContextOptions<AppDBContext> options):base(options)
         {
@@ -13,8 +14,6 @@ namespace Fittness.Data
         public DbSet<Card> Cards { get; set; }
         public DbSet<Frequently_question> Frequently_questions { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
-
-
         public DbSet<Palate1> Palates1 { get; set; }
 
         public DbSet<PalateImg> PalatesImg { get; set;}
