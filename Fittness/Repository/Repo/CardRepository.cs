@@ -57,7 +57,7 @@ public class CardRepository : ICardRepository
             data.Rating = card.Rating;
             data.Img = card.Img;
            _db.Cards.Update(data);
-            _db.SaveChanges();
+           _db.SaveChanges();
         }
     }
 }

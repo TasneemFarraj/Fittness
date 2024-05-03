@@ -16,8 +16,11 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDBContext>();
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddScoped<ICardRepository, CardRepository>();
-builder.Services.AddScoped<IUOW, UOW>();
+builder.Services.AddScoped<IPalateIngredientRepository, PalateIngredientRepository>();
+
+builder.Services.AddTransient<IUOW, UOW>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 var app = builder.Build();
@@ -41,6 +44,7 @@ app.UseStaticFiles(new StaticFileOptions
                     Path.Combine(Directory.GetCurrentDirectory(), "file")),
     RequestPath = "/file"
 });
+
 // Shows UseCors with CorsPolicyBuilder.
 app.UseCors(builder =>
 {

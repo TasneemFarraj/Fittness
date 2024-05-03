@@ -15,5 +15,9 @@ namespace Fittness.Data.Models
           public string item_6 { get; set; }
           public string item_7 { get; set; }
 
+        internal int Count()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

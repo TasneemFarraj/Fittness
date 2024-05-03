@@ -12,6 +12,9 @@ public class AutoMapperConfig
         {
             M.CreateMap<Card, ReadCardDto>().ReverseMap();
             M.CreateMap<Card, WriteCardDto>().ReverseMap();
+            M.CreateMap<PalateIngredient, ReadPalateIngredientDto>().ReverseMap();
+            M.CreateMap<PalateIngredient, WritePalateIngredientDto>().ReverseMap();
+
         });
         return MapConfig.CreateMapper();
     }

@@ -13,9 +13,12 @@ namespace Fittness.Data.Models
         public string Email { get; set; }
         public string WorkingDay { get; set; }
         public string Rating { get; set; }
-        public string Img { get; set; }
+        public IFormFile Img { get; set; }
 
-
+        internal int Count()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

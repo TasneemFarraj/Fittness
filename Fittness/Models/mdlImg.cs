@@ -5,4 +5,3 @@
         public IFormFile Image { get; set; }
     }
 }
-

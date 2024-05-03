@@ -4,4 +4,7 @@ namespace Fittness.UnitOfWork;
 public interface IUOW
 {
     public ICardRepository Card { get; set; }
+    public IPalateIngredientRepository PalateIngredient { get; set; }
+
 }
+ 

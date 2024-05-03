@@ -35,5 +35,10 @@ public class ImageUploader
 
         return domainName + url;
     }
+
+    internal static IFormFile Upload(string img, FileTypeEnum image, string v)
+    {
+        throw new NotImplementedException();
+    }
 }
 

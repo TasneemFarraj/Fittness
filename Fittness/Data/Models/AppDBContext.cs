@@ -12,6 +12,7 @@ namespace Fittness.Data
         }
         public DbSet<Home> Homes { get; set; }
         public DbSet<Card> Cards { get; set; }
+
         public DbSet<Frequently_question> Frequently_questions { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<Palate1> Palates1 { get; set; }
