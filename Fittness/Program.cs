@@ -52,4 +52,5 @@ app.UseCors(builder =>
            .AllowAnyMethod()
            .AllowAnyHeader();
 });
+
 app.Run();

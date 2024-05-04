@@ -41,7 +41,7 @@ namespace Fittness.Controllers
 
             try
             {
-                if (Palate.Count() > 0)
+                if (Palate != null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -79,7 +79,7 @@ namespace Fittness.Controllers
 
             try
             {
-                if (Palate.Count() > 0)
+                if (Palate !=null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -105,7 +105,7 @@ namespace Fittness.Controllers
             return apiResponse;
         }
 
-        
+
 
         [HttpPost(nameof(AddPalateIngrads))]
         public async Task<ResponseStandardJsonApi> AddPalateIngrads([FromForm] WritePalateIngredientDto dto)
@@ -118,7 +118,7 @@ namespace Fittness.Controllers
 
             try
             {
-                if (Palate.Count() > 0)
+                if (Palate != null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -156,7 +156,7 @@ namespace Fittness.Controllers
 
             try
             {
-                if (Palate.Count() > 0)
+                if (Palate != null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -183,30 +183,19 @@ namespace Fittness.Controllers
 
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<ResponseStandardJsonApi> RemovePalateIngrads(int id)
         {
-
-            await _uOW.PalateIngredient.DeletePalateIngredient(id);
-
             var apiResponse = new ResponseStandardJsonApi();
 
             try
             {
-                if (id != null)
-                {
-                    apiResponse.Message = "Show Rows";
-                    apiResponse.Code = Ok().StatusCode;
-                    apiResponse.Success = true;
-                    apiResponse.Result = Ok("Delete");
-                }
-                else
-                {
-                    apiResponse.Success = false;
-                    apiResponse.Message = "No Data";
-                    apiResponse.Code = NotFound().StatusCode;
-                    apiResponse.Result = null;
-                }
+                await _uOW.PalateIngredient.DeletePalateIngredient(id);
+
+                apiResponse.Message = "Successfully deleted";
+                apiResponse.Code = Ok().StatusCode;
+                apiResponse.Success = true;
+                apiResponse.Result = Ok("Delete");
             }
             catch (Exception ex)
             {
@@ -217,8 +206,6 @@ namespace Fittness.Controllers
             }
 
             return apiResponse;
-
         }
     }
 }
-

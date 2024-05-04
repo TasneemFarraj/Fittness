@@ -63,10 +63,7 @@ namespace Fittness.Controllers
 
             return apiResponse;
         }
-
-    
-
-        [HttpGet(nameof(GetcardById))]
+       [HttpGet(nameof(GetcardById))]
         public async Task<ResponseStandardJsonApi> GetcardById(int Id)
         {
             var mapper = AutoMapperConfig.CreateMapper();
@@ -77,7 +74,7 @@ namespace Fittness.Controllers
 
             try
             {
-                if (data.Count()> 0)
+                if (data != null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -182,7 +179,7 @@ namespace Fittness.Controllers
 
         return apiResponse;
 
-    }
+        }
 
 
         [HttpDelete(nameof(Removecard))]

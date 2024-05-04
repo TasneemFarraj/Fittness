@@ -13,10 +13,7 @@ public class ReadCardDto
     public string Rating { get; set; }
     public string Img { get; set; }
 
-    internal int Count()
-    {
-        throw new NotImplementedException();
-    }
+
 }
 public class ReadPalateIngredientDto
 {
