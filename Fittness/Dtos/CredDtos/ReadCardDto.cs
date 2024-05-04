@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Fittness.Dtos.CredDtos;
 
 public class ReadCardDto
@@ -26,4 +28,10 @@ public class ReadPalateIngredientDto
     public string item_6 { get; set; }
     public string item_7 { get; set; }
 }
+public class ReadPalate1Dto
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Img { get; set; }
 
+}

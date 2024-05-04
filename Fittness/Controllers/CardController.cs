@@ -70,15 +70,15 @@ namespace Fittness.Controllers
 
        [HttpGet(nameof(GetcardById))]
         public async Task<ResponseStandardJsonApi> GetcardById(int Id)
-        {
-            var mapper = AutoMapperConfig.CreateMapper();
-            var result = await _uOW.Card.GetAsync(Id);
-            var data = mapper.Map<ReadCardDto>(result);
-
+        { 
             var apiResponse = new ResponseStandardJsonApi();
+          
 
             try
             {
+            var mapper = AutoMapperConfig.CreateMapper();
+            var result = await _uOW.Card.GetAsync(Id);
+            var data = mapper.Map<ReadCardDto>(result);
                 if (data is not null)
                 {
                     apiResponse.Message = "Show Rows";

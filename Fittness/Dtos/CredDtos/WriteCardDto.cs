@@ -23,3 +23,10 @@ public class WritePalateIngredientDto
     public string item_6 { get; set; }
     public string item_7 { get; set; }
 }
+public class WritePalate1Dto
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public IFormFile Img { get; set; }
+
+}
