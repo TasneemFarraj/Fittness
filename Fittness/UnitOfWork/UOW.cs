@@ -12,8 +12,11 @@ public class UOW : IUOW
         PalateIngredient = ingredient;
         User = user;
     }
+    public IUserRepository User { get; set; }
     public ICardRepository Card { get; set; }
     public IPalateIngredientRepository PalateIngredient { get ; set; }
-    public IUserRepository User { get; set; }
+   
+    public IPalate1Repository Palate1 { get; set; }
+
 }
 

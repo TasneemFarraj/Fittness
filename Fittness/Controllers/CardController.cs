@@ -191,12 +191,13 @@ namespace Fittness.Controllers
         [HttpDelete(nameof(Removecard))]
         public async Task<ResponseStandardJsonApi> Removecard(int id)
         {
-            await _uOW.Card.DeleteCard(id);
+           
 
             var apiResponse = new ResponseStandardJsonApi();
 
             try
             {
+               await _uOW.Card.DeleteCard(id);
                 if (id != 0)
                 {
                     apiResponse.Message = "Show Rows";
