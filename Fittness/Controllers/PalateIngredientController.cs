@@ -33,15 +33,16 @@ namespace Fittness.Controllers
         [HttpGet(nameof(GetPalateIngrads))]
         public async Task<ResponseStandardJsonApi> GetPalateIngrads()
         {
-            var mapper = AutoMapperConfig.CreateMapper();
-            var result = await _uOW.PalateIngredient.GetListAsync();
-            var Palate = mapper.Map<List<ReadPalateIngredientDto>>(result);
-
             var apiResponse = new ResponseStandardJsonApi();
 
             try
             {
-                if (Palate != null)
+            var mapper = AutoMapperConfig.CreateMapper();
+            var result = await _uOW.PalateIngredient.GetListAsync();
+            var Palate = mapper.Map<List<ReadPalateIngredientDto>>(result);
+
+            
+                if (Palate is not null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -71,15 +72,16 @@ namespace Fittness.Controllers
         [HttpGet(nameof(GetPalateIngradsById))]
         public async Task<ResponseStandardJsonApi> GetPalateIngradsById(int Id)
         {
-            var mapper = AutoMapperConfig.CreateMapper();
-            var result = await _uOW.PalateIngredient.GetAsync(Id);
-            var Palate = mapper.Map<ReadCardDto>(result);
-
             var apiResponse = new ResponseStandardJsonApi();
 
             try
             {
-                if (Palate !=null)
+            var mapper = AutoMapperConfig.CreateMapper();
+            var result = await _uOW.PalateIngredient.GetAsync(Id);
+            var Palate = mapper.Map<ReadCardDto>(result);
+
+            
+                if (Palate is not null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -109,16 +111,17 @@ namespace Fittness.Controllers
 
         [HttpPost(nameof(AddPalateIngrads))]
         public async Task<ResponseStandardJsonApi> AddPalateIngrads([FromForm] WritePalateIngredientDto dto)
-        {
-            var mapper = AutoMapperConfig.CreateMapper();
-            var Palate = mapper.Map<PalateIngredient>(dto);
-            await _uOW.PalateIngredient.AddPalateIngredient(Palate);
-
+        { 
             var apiResponse = new ResponseStandardJsonApi();
 
             try
             {
-                if (Palate != null)
+            var mapper = AutoMapperConfig.CreateMapper();
+            var Palate = mapper.Map<PalateIngredient>(dto);
+            await _uOW.PalateIngredient.AddPalateIngredient(Palate);
+
+          
+                if (Palate is not null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -148,15 +151,15 @@ namespace Fittness.Controllers
         [HttpPut(nameof(UpdatePalateIngrads))]
         public async Task<ResponseStandardJsonApi> UpdatePalateIngrads([FromForm] WritePalateIngredientDto dto)
         {
-            var mapper = AutoMapperConfig.CreateMapper();
-            var Palate = mapper.Map<PalateIngredient>(dto);
-            await _uOW.PalateIngredient.UpdatePalateIngredient(Palate);
-
             var apiResponse = new ResponseStandardJsonApi();
 
             try
             {
-                if (Palate != null)
+                var mapper = AutoMapperConfig.CreateMapper();
+                var Palate = mapper.Map<PalateIngredient>(dto);
+                await _uOW.PalateIngredient.UpdatePalateIngredient(Palate);
+
+                if (Palate is not null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -183,29 +186,43 @@ namespace Fittness.Controllers
 
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete(nameof(id))]
         public async Task<ResponseStandardJsonApi> RemovePalateIngrads(int id)
         {
-            var apiResponse = new ResponseStandardJsonApi();
-
-            try
             {
                 await _uOW.PalateIngredient.DeletePalateIngredient(id);
 
-                apiResponse.Message = "Successfully deleted";
-                apiResponse.Code = Ok().StatusCode;
-                apiResponse.Success = true;
-                apiResponse.Result = Ok("Delete");
-            }
-            catch (Exception ex)
-            {
-                apiResponse.Success = false;
-                apiResponse.Message = ex.Message;
-                apiResponse.Code = BadRequest().StatusCode;
-                apiResponse.Result = null;
-            }
+                var apiResponse = new ResponseStandardJsonApi();
 
-            return apiResponse;
+                try
+                {
+                    if (id != 0)
+                    {
+                        apiResponse.Message = "Show Rows";
+                        apiResponse.Code = Ok().StatusCode;
+                        apiResponse.Success = true;
+                        apiResponse.Result = Ok("Delete");
+                    }
+                    else
+                    {
+                        apiResponse.Success = false;
+                        apiResponse.Message = "No Data";
+                        apiResponse.Code = NotFound().StatusCode;
+                        apiResponse.Result = null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    apiResponse.Success = false;
+                    apiResponse.Message = ex.Message;
+                    apiResponse.Code = BadRequest().StatusCode;
+                    apiResponse.Result = null;
+                }
+
+                return apiResponse;
+
+            }
         }
     }
 }
+    

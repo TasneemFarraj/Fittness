@@ -29,16 +29,17 @@ namespace Fittness.Controllers
 
         [HttpGet(nameof(Getcard))]
         public async Task<ResponseStandardJsonApi> Getcard()
-        {
-            var mapper = AutoMapperConfig.CreateMapper();
-            var result = await _uOW.Card.GetListAsync();
-            var data = mapper.Map<List<ReadCardDto>>(result);
-
+        {   
             var apiResponse = new ResponseStandardJsonApi();
 
             try
             {
-                if (data.Count() > 0)
+            var mapper = AutoMapperConfig.CreateMapper();
+            var result = await _uOW.Card.GetListAsync();
+            var data = mapper.Map<List<ReadCardDto>>(result);
+
+        
+                if (data is not null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -63,6 +64,8 @@ namespace Fittness.Controllers
 
             return apiResponse;
         }
+
+
        [HttpGet(nameof(GetcardById))]
         public async Task<ResponseStandardJsonApi> GetcardById(int Id)
         {
@@ -74,7 +77,7 @@ namespace Fittness.Controllers
 
             try
             {
-                if (data != null)
+                if (data is not null)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
@@ -102,20 +105,21 @@ namespace Fittness.Controllers
 
 
         [HttpPost(nameof(AddCard))]
-        public async Task<ResponseStandardJsonApi> AddCard([FromForm]ReadCardDto dto)
+        public async Task<ResponseStandardJsonApi> AddCard([FromForm]WriteCardDto dto)
         {
-            var mapper = AutoMapperConfig.CreateMapper();
-            var data = mapper.Map<Card>(dto);
-            if (dto.Img is not null)
-                data.Img = ImageUploader.Upload(dto.Img, FileTypeEnum.Image, "http://localhost:5266/");
-
-            await _uOW.Card.AddCard(data);
             var apiResponse = new ResponseStandardJsonApi();
+
 
             try
             {
-                if (data.Count() > 0)
+                var mapper = AutoMapperConfig.CreateMapper();
+                var data = mapper.Map<Card>(dto);
+                if (dto.Img is not null)
+                    data.Img = ImageUploader.Upload(dto.Img, FileTypeEnum.Image, "http://localhost:5266/");
+
+                if (data is not null)
                 {
+                    await _uOW.Card.AddCard(data);
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;
                     apiResponse.Success = true;
@@ -143,19 +147,19 @@ namespace Fittness.Controllers
 
     
     [HttpPut(nameof(UpdateCard))]
-        public async Task<ResponseStandardJsonApi> UpdateCard([FromForm]ReadCardDto dto)
+        public async Task<ResponseStandardJsonApi> UpdateCard([FromForm]WriteCardDto dto)
+        {     var apiResponse = new ResponseStandardJsonApi();
+
+        try
         {
             var mapper = AutoMapperConfig.CreateMapper();
             var data = mapper.Map<Card>(dto);
             if (dto.Img is not null)
                 data.Img = ImageUploader.Upload(dto.Img, FileTypeEnum.Image, "http://localhost:5266/");
             await _uOW.Card.UpdateCard(data);
-        var apiResponse = new ResponseStandardJsonApi();
-
-        try
-        {
-            if (data.Count() > 0)
-            {
+   
+            if (data is not null)
+                {
                 apiResponse.Message = "Show Rows";
                 apiResponse.Code = Ok().StatusCode;
                 apiResponse.Success = true;
@@ -191,7 +195,7 @@ namespace Fittness.Controllers
 
             try
             {
-                if (id != null)
+                if (id != 0)
                 {
                     apiResponse.Message = "Show Rows";
                     apiResponse.Code = Ok().StatusCode;

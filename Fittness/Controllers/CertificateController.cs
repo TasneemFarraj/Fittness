@@ -44,21 +44,21 @@ namespace Fittness.Controllers
 
 
         //Post method
-        [HttpPost]
-        public async Task<IActionResult> CerImages([FromForm] mdlCertif mdl)
-        {
-            using var stream = new MemoryStream();
-            await mdl.Image.CopyToAsync(stream);
+        //[HttpPost]
+        //public async Task<IActionResult> CerImages([FromForm] mdlCertif mdl)
+        //{
+        //    using var stream = new MemoryStream();
+        //    await mdl.Image.CopyToAsync(stream);
 
 
-            var Cert = new Certificate
-            {
-                Image = stream.ToArray()
-            };
-            await _db.Certificates.AddAsync(Cert);
-            await _db.SaveChangesAsync();
-            return Ok(Cert);
-        }
+        //    var Cert = new Certificate
+        //    {
+        //        Image = stream.ToArray()
+        //    };
+        //    await _db.Certificates.AddAsync(Cert);
+        //    await _db.SaveChangesAsync();
+        //    return Ok(Cert);
+        //}
 
         //Put method
         [HttpPut]

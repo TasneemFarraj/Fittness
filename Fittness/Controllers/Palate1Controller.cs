@@ -97,54 +97,54 @@ namespace Fittness.Controllers
 
 
         //Post method
-        [HttpPost]
-        public async Task<ResponseStandardJsonApi> PalateCards([FromForm] mdlCrafts mdl)
-        {
-            var apiResponse = new ResponseStandardJsonApi();
-            try
-            {
+        //[HttpPost]
+        //public async Task<ResponseStandardJsonApi> PalateCards()
+        //{
+        //    var apiResponse = new ResponseStandardJsonApi();
+        //    try
+        //    {
 
-                var Palatee = await _db.Palates1.ToListAsync();
+        //        var Palatee = await _db.Palates1.ToListAsync();
 
-                if (Palatee.Count() > 0)
-                {
-                    apiResponse.Message = "Show Rows";
-                    apiResponse.Code = Ok().StatusCode;
-                    apiResponse.Success = true;
-                    apiResponse.Result = null;
-                }
-                else
-                {
-                    apiResponse.Success = false;
-                    apiResponse.Message = "No Data";
-                    apiResponse.Code = NotFound().StatusCode;
-                    apiResponse.Result = new NullColumns[] { };
-                }
-            }
-            catch (Exception ex)
-            {
-                apiResponse.Success = false;
-                apiResponse.Message = ex.Message;
-                apiResponse.Code = BadRequest().StatusCode;
-                apiResponse.Result = new NullColumns[] { };
-            }
+        //        if (Palatee.Count() > 0)
+        //        {
+        //            apiResponse.Message = "Show Rows";
+        //            apiResponse.Code = Ok().StatusCode;
+        //            apiResponse.Success = true;
+        //            apiResponse.Result = null;
+        //        }
+        //        else
+        //        {
+        //            apiResponse.Success = false;
+        //            apiResponse.Message = "No Data";
+        //            apiResponse.Code = NotFound().StatusCode;
+        //            apiResponse.Result = new NullColumns[] { };
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        apiResponse.Success = false;
+        //        apiResponse.Message = ex.Message;
+        //        apiResponse.Code = BadRequest().StatusCode;
+        //        apiResponse.Result = new NullColumns[] { };
+        //    }
 
-            return apiResponse;
+        //    return apiResponse;
 
-            {
-                using var stream = new MemoryStream();
-                await mdl.Image.CopyToAsync(stream);
+        //    {
+        //        using var stream = new MemoryStream();
+        //        await mdl.Image.CopyToAsync(stream);
 
 
-                var craft = new Palate1
-                {
-                    Name = mdl.Name,
-                    Image = stream.ToArray()
-                };
-                await _db.Palates1.AddAsync(craft);
-                await _db.SaveChangesAsync();
-            }
-        }
+        //        var craft = new Palate1
+        //        {
+        //            Name = mdl.Name,
+        //            Image = stream.ToArray()
+        //        };
+        //        await _db.Palates1.AddAsync(craft);
+        //        await _db.SaveChangesAsync();
+        //    }
+        //}
         //Put method
         [HttpPut]
         public async Task<ResponseStandardJsonApi> PalateCards(Palate1 palate)
