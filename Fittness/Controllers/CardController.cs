@@ -6,6 +6,7 @@ using Fittness.Dtos.CredDtos;
 using Fittness.Response;
 using Fittness.UnitOfWork;
 using Fittness.Upload;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace Fittness.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class CardController : ControllerBase
     {
         private readonly AppDBContext _db;
@@ -27,7 +29,7 @@ namespace Fittness.Controllers
         }
 
 
-        [HttpGet(nameof(Getcard))]
+        [HttpGet(nameof(Getcard)), Authorize]
         public async Task<ResponseStandardJsonApi> Getcard()
         {   
             var apiResponse = new ResponseStandardJsonApi();

@@ -13,4 +13,15 @@
     {
 
     }
+    public class JwtAuthResponse
+    {
+        public string? nameid { get; set; }
+        public string? given_name { get; set; }
+        public string? unique_name { get; set; }
+        public string? jti { get; set; }
+        public string? exp { get; set; }
+        public string? iss { get; set; }
+        public string? aud { get; set; }
+        public string? UserType { get; set; }
+    }
 }

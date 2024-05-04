@@ -1,6 +1,7 @@
-﻿namespace Fittness.Repository.IRepo
+﻿using Fittness.Data.Models;
+
+namespace Fittness.Repository.IRepo
 {
-    public interface IPalate1Repository
-    {
-    }
+
 }
+

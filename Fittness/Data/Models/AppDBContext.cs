@@ -24,6 +24,7 @@ namespace Fittness.Data
         public DbSet<PalateIngredient> PalateIngredients { get; set; }
         public DbSet<PalatePrepare> PalatePrepares { get; set; }
 
+        public DbSet<User> User { get; set; }
     }
 
 }
